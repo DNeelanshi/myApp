@@ -100,6 +100,8 @@
           <button class="radius margin_top" (click)="register(signupForm)" [disabled]="!signupForm.form.valid" ion-button full color="light" >SIGN UP</button>
           
           <div class="create">Already have account? <span (click)="loginPage()"> Log In </span> </div>
+
+          <button ion-button (click)="loginfb()"> Login with facebook</button>
         </ion-list>
       </div>
   </form>

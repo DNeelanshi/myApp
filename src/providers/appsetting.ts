@@ -11,8 +11,10 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class Appsetting {
+  profile;
  myGlobalVar: string ='http://rakesh.crystalbiltech.com/bookride/api/'; //shop/shippingaddress
-    // console.log(myGlobalVar);
+   GlobalVar: string = 'http://priyank.crystalbiltech.com/dj/api/';
+  
   constructor(public http: Http ) {
     console.log('Hello Appsetting Provider');
    // this.ionViewDidEnter();

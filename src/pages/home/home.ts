@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import{LoginPage} from '../login/login';
 import{AboutPage} from '../about/about';
 import{SignupPage} from '../signup/signup';
+import { UserprofilePage } from '../userprofile/userprofile';
 
 
 @Component({
@@ -27,7 +28,10 @@ signup(){
 	this.navCtrl.push(SignupPage);
 }
 
+userprofile(){
 
+	this.navCtrl.push(UserprofilePage);
+}
 
 
 

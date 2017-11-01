@@ -6,6 +6,8 @@ import {Http, Headers, RequestOptions} from '@angular/http';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ActionSheetController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { EditprofilePage } from '../editprofile/editprofile';
+
 
 
 /**
@@ -35,6 +37,9 @@ export class UserprofilePage {
                 loadingCtrl:LoadingController
                ) {
   	this.UserprofilePage()
+  	 // var facebook_data = localStorage.getItem(JSON.parse('facebook_data'));
+  	 // alert("data fetched");
+  	 // alert(this.facebook_data);
   }
   
   UserprofilePage(){
@@ -53,9 +58,11 @@ export class UserprofilePage {
 this.http.post(this.appsetting.myGlobalVar + 'users/user', serialized, options).map(res => res.json()).subscribe(data => {
 			// this.Loading.dismiss();
       
-			console.log(data)
+		//	console.log(this.fb_data)
 			 this.profile = data.data.User
-			 this.srcImage=this.profile.image
+			this.srcImage=this.profile.image;
+			// this.profile = this.facebook_data;
+			 // this.srcImage = localStorage.getItem('facebook_pic');
 			 console.log(this.profile);
 
 		})
@@ -72,7 +79,9 @@ this.http.post(this.appsetting.myGlobalVar + 'users/user', serialized, options).
 CameraAction() {
 		console.log('opening');
 		let actionsheet = this.actionSheetCtrl.create({
+			
 			title: "Choose Album",
+			
 			buttons: [{
 
 				text: 'Camera',
@@ -91,7 +100,7 @@ CameraAction() {
 						this.imgTosend = imageUri;
 						//this.Loader.dismiss();
                         alert('camera working');
-						//this.changeimage();
+						this.saveimage();
 
 					}, (err) => {
 						alert(JSON.stringify(err));
@@ -119,7 +128,7 @@ CameraAction() {
 						this.srcImage = 'data:image/jpeg;base64,' + imageData;
 						this.imgTosend = imageData;
 					//	this.Loader.dismiss();
-						//this.changeimage();
+						this.saveimage();
 						  alert('gallery working');
 					}, (err) => {
 						//this.Loader.dismiss();
@@ -133,7 +142,7 @@ CameraAction() {
 				role: 'cancel',
 				handler: () => {
 					console.log('Cancel clicked');
-					//  actionsheet.dismiss();
+					  actionsheet.dismiss();
 
 				}
 			}]
@@ -142,26 +151,39 @@ CameraAction() {
 		actionsheet.present();
 	}
 
-//     const options: CameraOptions = {
-//   quality: 100,
-//   destinationType: this.camera.DestinationType.DATA_URL,
-//   encodingType: this.camera.EncodingType.JPEG,
-//   mediaType: this.camera.MediaType.PICTURE
-// }
 
-// this.camera.getPicture(options).then((imageData) => {
-//  // imageData is either a base64 encoded string or a file URI
-//  // If it's base64:
-//  let base64Image = 'data:image/jpeg;base64,' + imageData;
-// }, (err) => {
-//  // Handle error
-// });
+saveimage() {
 
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+		let options = new RequestOptions({ headers: headers });
+		var user_id = localStorage.getItem("userid")
+		var postdata = {
+			id: user_id,
+			img: this.imgTosend
+		};
+		console.log(postdata)
+		var serialized = this.serializeObj(postdata);
+		this.http.post(this.appsetting.myGlobalVar + 'users/saveimage', serialized, options).map(res => res.json()).subscribe(data => {
+			//this.Loading.dismiss();
+			console.log(data)
+
+		})
+
+	}
+	
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserprofilePage');
   }
 
-    homePage(){
+homepage(){
       
-  this.navCtrl.push(HomePage);
+  this.navCtrl.push(HomePage);}
+
+
+editprofilepage(){
+      
+  this.navCtrl.push(EditprofilePage);
+}
+
 }

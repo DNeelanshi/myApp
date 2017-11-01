@@ -11,11 +11,17 @@ import { LoginPage } from '../pages/login/login';
 import { AboutPage } from '../pages/about/about';
 import { SignupPage } from '../pages/signup/signup';
 import { UserprofilePage } from '../pages/userprofile/userprofile';
+import { EditprofilePage } from '../pages/editprofile/editprofile';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
+import { Facebook } from '@ionic-native/facebook';
+import { FbprofilePage } from '../pages/fbprofile/fbprofile';
+ import { CodePush } from '@ionic-native/code-push';
+// 
+// import firebase from 'firebase';
 // import { ToastController } from 'ionic-angular';
-// import { Firebase } from '@ionic-native/firebase';
+//import { Firebase } from '@ionic-native/firebase';
 
 
 
@@ -27,7 +33,9 @@ import { Camera } from '@ionic-native/camera';
     LoginPage,
     AboutPage,
     SignupPage,
-    UserprofilePage
+    UserprofilePage,
+    EditprofilePage,
+    FbprofilePage
   ],
   imports: [
     BrowserModule,
@@ -43,14 +51,18 @@ import { Camera } from '@ionic-native/camera';
     LoginPage,
     AboutPage,
     SignupPage,
-     UserprofilePage
+     UserprofilePage,
+     EditprofilePage,
+     FbprofilePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    CodePush,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
      Appsetting,
-      Camera
+      Camera,
+     Facebook
    
   ]
 })
